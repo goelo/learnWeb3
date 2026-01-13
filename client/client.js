@@ -15,25 +15,23 @@ async function main() {
     // 1. 连接到本地测试网络
     const connection = new Connection("http://localhost:8899", "confirmed");
 
-    // 2. 获取你的钱包 (Payer)
-    // 默认路径通常在 ~/.config/solana/id.json
+    // 2. 获取钱包 (Payer)
+    // 默认路径 ~/.config/solana/id.json
     const walletPath = os.homedir() + "/.config/solana/id.json";
     const secretKey = Uint8Array.from(JSON.parse(fs.readFileSync(walletPath)));
     const payer = Keypair.fromSecretKey(secretKey);
 
     console.log("当前钱包地址:", payer.publicKey.toBase58());
 
-    // 3. 填入你的程序 ID
-    // 👇👇👇 请在这里填入你刚才获得的那个 ID 👇👇👇
+    // 3. 填入程序 ID
     const programId = new PublicKey("CuRF5bMpCoatpfGTKy7H99JoAseKEUCrENzFv9yHTnG4");
 
     console.log("目标程序 ID:", programId.toBase58());
     // ... 前面的代码 ...
 
     // 4. 创建指令 (Instruction)
-    // 这里我们构建一个简单的指令：
     // - keys: 涉及的账户列表。至少要把你自己(payer)放进去，因为你要付钱。
-    // - programId: 我们的目标程序。
+    // - programId: 目标程序。
     // - data: 传递给程序的参数。因为我们的 Rust 程序里暂时没处理参数，发个空包就行。
     const instruction = new TransactionInstruction({
         keys: [
@@ -58,7 +56,7 @@ async function main() {
 
     console.log("✅ 交易成功！");
     console.log("交易哈希 (Signature):", signature);
-    console.log(`查看交易详情: solana confirm -v ${signature} --url localhost`);
+    console.log(`你可以在浏览器中查看日志: https://explorer.solana.com/tx/${signature}?cluster=devnet`);
 }
 
 // 这里的 main().catch... 已经在你之前的代码里有了，不用重复复制

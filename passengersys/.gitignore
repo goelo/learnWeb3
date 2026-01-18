@@ -1,0 +1,20 @@
+# Solana 本地验证器数据
+test-ledger/
+
+# Go 编译输出
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# macOS
+.DS_Store
